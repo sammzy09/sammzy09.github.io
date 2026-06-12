@@ -1,90 +1,640 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soumya Sargam | Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soumya Sargam | Data Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0f1f3d;
+      --navy-mid: #1a3461;
+      --teal: #1a7a6e;
+      --teal-light: #22a898;
+      --cream: #f7f4ef;
+      --warm-white: #fdfcfa;
+      --text: #1c1c1c;
+      --text-soft: #555;
+      --border: #e0dbd4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--warm-white);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2.5rem;
+      background: rgba(253, 252, 250, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--navy);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-soft);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 7rem 2.5rem 4rem;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1a4a6e 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -40%; right: -10%;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,122,110,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 780px; position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal-light);
+      border: 1px solid rgba(26,168,152,0.4);
+      border-radius: 2px;
+      padding: 0.3rem 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 span { color: var(--teal-light); }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 580px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; }
+    .tag {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.35rem 0.85rem;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.75rem 1.8rem;
+      background: var(--teal);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-block;
+      padding: 0.75rem 1.8rem;
+      border: 1px solid rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--teal-light); color: var(--teal-light); }
+
+    /* SECTIONS */
+    section { padding: 5rem 2.5rem; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--navy);
+      margin-bottom: 2.5rem;
+      line-height: 1.2;
+    }
+
+    /* ABOUT */
+    #about { background: var(--cream); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { color: var(--text-soft); margin-bottom: 1rem; font-size: 0.97rem; }
+    .about-text p strong { color: var(--navy); }
+    .about-stats { display: flex; flex-direction: column; gap: 1.2rem; }
+    .stat-card {
+      padding: 1.4rem 1.6rem;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--teal);
+      border-radius: 2px;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .stat-label { font-size: 0.82rem; color: var(--text-soft); font-weight: 500; }
+
+    /* SKILLS */
+    #skills { background: var(--warm-white); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .skill-card {
+      padding: 1.6rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: var(--cream);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--teal); transform: translateY(-2px); }
+    .skill-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+    .skill-card h3 { font-size: 0.9rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; }
+    .skill-card p { font-size: 0.83rem; color: var(--text-soft); line-height: 1.6; }
+
+    /* EXPERIENCE */
+    #experience { background: var(--cream); }
+    .timeline { position: relative; padding-left: 1.5rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0.4rem; bottom: 0;
+      width: 1px; background: var(--border);
+    }
+    .timeline-item { position: relative; margin-bottom: 2.5rem; }
+    .timeline-item::before {
+      content: '';
+      position: absolute; left: -1.5rem; top: 0.45rem;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      border: 2px solid var(--warm-white);
+      box-shadow: 0 0 0 2px var(--teal);
+    }
+    .timeline-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
+    .timeline-date { font-size: 0.78rem; color: var(--teal); font-weight: 600; letter-spacing: 0.04em; }
+    .timeline-company { font-size: 0.78rem; color: var(--text-soft); }
+    .timeline-item h3 { font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; }
+    .timeline-item ul { list-style: none; padding: 0; }
+    .timeline-item li {
+      font-size: 0.88rem; color: var(--text-soft);
+      padding: 0.25rem 0 0.25rem 1.1rem;
+      position: relative; line-height: 1.65;
+    }
+    .timeline-item li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--teal); font-size: 0.75rem;
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--warm-white); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.8rem; }
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      background: var(--cream);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(15,31,61,0.08); }
+    .project-header {
+      padding: 1.6rem 1.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    }
+    .project-type { font-size: 0.72rem; color: var(--teal-light); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .project-header h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #fff; line-height: 1.3; }
+    .project-body { padding: 1.4rem 1.6rem; }
+    .project-body p { font-size: 0.87rem; color: var(--text-soft); margin-bottom: 1rem; line-height: 1.65; }
+    .project-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+    .tool-tag {
+      font-size: 0.72rem; font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      background: rgba(26,122,110,0.1);
+      color: var(--teal);
+      border-radius: 2px;
+      border: 1px solid rgba(26,122,110,0.2);
+    }
+    .project-link {
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--teal); text-decoration: none;
+      border-bottom: 1px solid rgba(26,122,110,0.3);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .project-link:hover { color: var(--navy); border-color: var(--navy); }
+
+    /* CERTIFICATIONS */
+    #certifications { background: var(--cream); }
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+    .cert-card {
+      padding: 1.3rem 1.5rem;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .cert-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .cert-card h4 { font-size: 0.88rem; font-weight: 600; color: var(--navy); margin-bottom: 0.2rem; line-height: 1.4; }
+    .cert-card p { font-size: 0.78rem; color: var(--text-soft); }
+    .cert-badge {
+      display: inline-block; margin-top: 0.4rem;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+    .badge-done { background: rgba(26,122,110,0.12); color: var(--teal); }
+    .badge-progress { background: rgba(15,31,61,0.08); color: var(--navy); }
+
+    /* CONTACT */
+    #contact { background: var(--navy); }
+    #contact .section-label { color: var(--teal-light); }
+    #contact .section-title { color: #fff; }
+    .contact-sub { color: rgba(255,255,255,0.65); margin-bottom: 2rem; font-size: 0.97rem; max-width: 500px; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 2px;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.85rem; font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-link:hover { border-color: var(--teal-light); color: var(--teal-light); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      .hero { padding: 6rem 1.2rem 3rem; }
+      section { padding: 3.5rem 1.2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <h1>Soumya Sargam</h1>
-        <p>Aspiring Web Developer | Former Data Analyst</p>
-    </header>
 
-    <!-- About Me Section -->
-    <section id="about">
-        <h2>About Me</h2>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">Soumya Sargam</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Data Analyst · Ex-Accenture · AWS Certified</span>
+    <h1>Turning data into<br /><span>decisions that matter</span></h1>
+    <p class="hero-sub">
+      4+ years delivering data transformation and analytics at Accenture across large-scale financial systems.
+      Now returning to the workforce with focused upskilling in Power BI, SQL, and cloud — targeting
+      Data Analyst and Product Analyst roles.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Power BI</span>
+      <span class="tag">SQL</span>
+      <span class="tag">AWS Certified</span>
+      <span class="tag">ETL & Data Transformation</span>
+      <span class="tag">Product Analytics</span>
+      <span class="tag">Agile</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">Analyst by training.<br />Returning with purpose.</h2>
+    <div class="about-grid">
+      <div class="about-text">
         <p>
-            Hello! I'm Soumya Sargam, an aspiring web developer with a background in data analysis. I'm passionate about learning new technologies and building web applications. I’m currently learning HTML, CSS, and JavaScript, and I’m excited to continue growing my skills.
+          I spent <strong>4+ years at Accenture</strong> as a Software Engineer Analyst working on
+          data transformation, ETL pipelines, and analytics for a major MNC financial client.
+          I standardised Critical Data Elements, built data quality frameworks, and reduced
+          UAT defects by 80% — the kind of unglamorous, high-stakes work that keeps financial
+          systems accurate and compliant.
         </p>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills">
-        <h2>Skills</h2>
-        <ul>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript(Learning)</li>
-            <li>React (Learning)</li>
-            <li>Python (Learning)</li>
-            <li>Data Analysis (Background)</li>
-            <li>Data Visualization (Background)</li>
-            <li>Wireframe</li>
-            <li>Product Management (Internship Experience)</li>
-            <li>Agile Methodology (Background)</li>
-            <li>Git & GitHub (Learning)</li>
-            <li>Loom (Learning)</li>
-            <li>SQL (Background from Data Analysis)</li>
-        </ul>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <h2>Projects</h2>
-        <p>My portfolio will be updated as I complete more projects. For now, check out my progress!</p>
-        <div class="project-card">
-            <h3>Project 1: Personal Portfolio</h3>
-            <p>This is the first project I've built to showcase my skills as I transition into web development.</p>
-            <p>In this project, I created a personal portfolio website using HTML and CSS. It serves as a platform to display my skills, projects, and contact information.</p>
-            <p>Technologies Used: HTML, CSS</p>
-            <!-- Link to GitHub or Demo (you can add this later) -->
-            <a href="#">View Project</a>
-            <h3>Project 2: NoteSwap – Student Note Sharing App | Product Management Intern Assignment</h3>
-            <p>NoteSwap is a web application designed to facilitate the sharing of notes among students. It allows users to upload, download, and share notes with their peers.</p>
-            <p>I defined the product requirements, creating wireframes, and ensuring the application met user needs.</p>
-            <p>Technologies Used: Wireframe, Loom, Google Docs</p>
-            <a href="https://docs.google.com/document/d/1DhZGHoF9ABS2-5pcEtG_oLFjCnA1zkO7/edit?usp=share_link&ouid=116547142945613614905&rtpof=true&sd=true" target="_blank">View Project Documentation</a>
-            <a href="https://wireframe.cc/pro/pp/6505c23b6949882" target="_blank">View Wireframe</a>
+        <p>
+          After a career break for full-time parenting, I'm returning to the workforce with
+          renewed clarity. I've completed my <strong>AWS Cloud Practitioner certification</strong>,
+          am finishing a <strong>Power BI Data Analyst track</strong> through the She Plus Tech
+          x DataCamp scholarship, and building SQL depth through structured practice.
+        </p>
+        <p>
+          I'm drawn to roles where data tells a story that drives real decisions — product
+          performance, user behaviour, business outcomes. That's where I want to work.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Years at Accenture — data transformation & analytics</div>
         </div>
-    </section>
+        <div class="stat-card">
+          <div class="stat-num">80%</div>
+          <div class="stat-label">Reduction in UAT defects through structured data quality practices</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">20+</div>
+          <div class="stat-label">Critical Data Elements standardised across banking systems</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Feel free to reach out to me!</p>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <p class="section-label">Capabilities</p>
+    <h2 class="section-title">What I bring to the table</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <h3>BI & Dashboards</h3>
+        <p>Power BI (Power Query, DAX, interactive dashboards), Excel (Pivot Tables, VLOOKUP, Power Query), data visualisation and KPI reporting.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗄️</div>
+        <h3>SQL & Data</h3>
+        <p>SQL querying (joins, aggregations, GROUP BY, subqueries, window functions), Oracle, DB2, MySQL. ETL pipelines, CDE standardisation, data mapping.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">☁️</div>
+        <h3>Cloud — AWS Certified</h3>
+        <p>AWS Cloud Practitioner CLF-C02 certified. Core services: EC2, S3, RDS, Lambda, VPC, IAM. Understanding of cloud data infrastructure.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🐍</div>
+        <h3>Python & Analysis</h3>
+        <p>Python with Pandas, NumPy, Matplotlib, scikit-learn. EDA, data wrangling, regression and classification modelling basics.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📋</div>
+        <h3>Product & BA Skills</h3>
+        <p>BRD and PRD documentation, user stories, requirements gathering, wireframing. Cross-functional stakeholder communication and sprint planning.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚙️</div>
+        <h3>Tools & Process</h3>
+        <p>Ab Initio, UNIX Shell scripting, Git/GitHub, Jupyter, VS Code, Agile/Scrum, Loom. Data lineage, quality rules, reconciliation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <p class="section-label">Career</p>
+    <h2 class="section-title">Where I've worked</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-date">Dec 2015 – Dec 2018</span>
+          <span class="timeline-company">Accenture Services Pvt. Ltd. · Gurugram</span>
+        </div>
+        <h3>Software Engineer Analyst <span style="font-weight:400;color:var(--text-soft)">(Promoted from Assistant Analyst)</span></h3>
         <ul>
-            <li><a href="mailto:smyasrgm@gmail.com">smyasrgm@gmail.com</a></li>
-            <li><a id="git-hub" href="https://github.com/sammzy09" target="_blank">Github</a></li>
-            <li><a id="linkedin" href="https://www.linkedin.com/in/soumya-sargam-91177764/" target="_blank">LinkedIn</a></li>
+          <li>Led CDE-driven data transformations across 2–5 banking source/target systems using Ab Initio, SQL, and UNIX; standardised 20+ Critical Data Elements.</li>
+          <li>Reduced UAT defects by ~80% through optimised ETL mappings, data validation rules, and strengthened documentation and test coverage.</li>
+          <li>Authored HLD/LLD, data mapping specifications, and test plans — improving traceability and reducing rework cycles significantly.</li>
+          <li>Implemented data quality rules (null/format/range checks) for regulatory reporting accuracy and completeness.</li>
+          <li>Mentored junior analysts, enforced coding standards, and reduced defect leakage by ~30%.</li>
         </ul>
-    </section>
+      </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Soumya Sargam</p>
-    </footer>
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-date">Oct 2014 – Dec 2015</span>
+          <span class="timeline-company">Accenture Services Pvt. Ltd. · Gurugram</span>
+        </div>
+        <h3>Assistant Software Engineer Analyst</h3>
+        <ul>
+          <li>Standardised Critical Data Elements and performed data transformations as per target system requirements.</li>
+          <li>Improved regulatory data accuracy via quality rules and reconciliation; delivered consistent Agile sprint releases.</li>
+        </ul>
+      </div>
 
-    <script src="script.js"></script>  <!-- Optional if you add JavaScript later -->
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-date">Jan 2019 – Apr 2025</span>
+          <span class="timeline-company">Career Break</span>
+        </div>
+        <h3>Full-time Parenting + Structured Upskilling</h3>
+        <ul>
+          <li>Completed AWS Cloud Practitioner (CLF-C02) certification.</li>
+          <li>Enrolled in She Plus Tech x DataCamp scholarship — Power BI Data Analyst track.</li>
+          <li>Completed proctored certifications in Data Science Using Python and Python Foundation via Infosys Springboard x HerKey.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <p class="section-label">Portfolio</p>
+    <h2 class="section-title">Things I've built and analysed</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-header">
+          <p class="project-type">Power BI · Data Analysis</p>
+          <h3>Customer Churn Analysis Dashboard</h3>
+        </div>
+        <div class="project-body">
+          <p>
+            Analysed telecom customer data to identify key drivers of churn across contract type,
+            tenure, and service usage. Built an interactive Power BI dashboard visualising
+            retention risk segments with actionable recommendations.
+          </p>
+          <p>
+            Applied full analyst workflow: exploratory analysis → churn pattern investigation
+            → visual storytelling with business recommendations.
+          </p>
+          <div class="project-tools">
+            <span class="tool-tag">Power BI</span>
+            <span class="tool-tag">DAX</span>
+            <span class="tool-tag">Power Query</span>
+            <span class="tool-tag">Data Visualisation</span>
+            <span class="tool-tag">Churn Analysis</span>
+          </div>
+          <a href="https://github.com/sammzy09/customer-churn-analysis" class="project-link" target="_blank">
+            View on GitHub →
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <p class="project-type">Product Management · UX</p>
+          <h3>NoteSwap – Student Note Sharing App</h3>
+        </div>
+        <div class="project-body">
+          <p>
+            Defined and validated the problem of inefficient note-sharing among students.
+            Created full BRD and PRD documentation including goals, feature requirements,
+            user stories, and success metrics.
+          </p>
+          <p>
+            Designed interactive wireframes to illustrate primary app flows and produced
+            a video product walkthrough.
+          </p>
+          <div class="project-tools">
+            <span class="tool-tag">BRD / PRD</span>
+            <span class="tool-tag">User Stories</span>
+            <span class="tool-tag">Wireframing</span>
+            <span class="tool-tag">Loom</span>
+            <span class="tool-tag">Product Thinking</span>
+          </div>
+          <a href="https://docs.google.com/document/d/1DhZGHoF9ABS2-5pcEtG_oLFjCnA1zkO7/edit?usp=share_link&ouid=116547142945613614905&rtpof=true&sd=true" class="project-link" target="_blank">
+            View Documentation →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-inner">
+    <p class="section-label">Credentials</p>
+    <h2 class="section-title">Certifications & Training</h2>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-icon">☁️</div>
+        <div>
+          <h4>AWS Cloud Practitioner (CLF-C02)</h4>
+          <p>Amazon Web Services</p>
+          <span class="cert-badge badge-done">Completed</span>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">📊</div>
+        <div>
+          <h4>Data Analyst in Power BI</h4>
+          <p>DataCamp x She Plus Tech Scholarship</p>
+          <span class="cert-badge badge-progress">In Progress</span>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🐍</div>
+        <div>
+          <h4>Data Science Using Python</h4>
+          <p>Infosys Springboard x HerKey — Proctored</p>
+          <span class="cert-badge badge-done">Completed</span>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">📐</div>
+        <div>
+          <h4>Python Foundation</h4>
+          <p>Infosys Springboard x HerKey — Proctored</p>
+          <span class="cert-badge badge-done">Completed</span>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🎓</div>
+        <div>
+          <h4>Citizen Data Science Using Python</h4>
+          <p>HerKey x Ashoka University x Infosys Springboard</p>
+          <span class="cert-badge badge-done">Completed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label">Let's connect</p>
+    <h2 class="section-title">Open to opportunities</h2>
+    <p class="contact-sub">
+      Targeting Data Analyst, Product Analyst, and Business Analyst roles.
+      Based in Lucknow — open to remote and Gurugram-based positions.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:smyasrgm@gmail.com" class="contact-link">✉ smyasrgm@gmail.com</a>
+      <a href="https://linkedin.com/in/smyasrgm" target="_blank" class="contact-link">🔗 LinkedIn</a>
+      <a href="https://github.com/sammzy09" target="_blank" class="contact-link">⌥ GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Soumya Sargam · Built with HTML & CSS
+</footer>
+
 </body>
 </html>
